@@ -1,0 +1,25 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <title>GBI - <%= pageTitle %></title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" media="all" href="/css/staff.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>GBI Staff Area</h1>
+    </header>
+
+    <% if (user) { %>
+      <navigation>
+        <ul>
+          <li>User: <%= user.username %></li>
+          <li><a href="/staff">Menu</a></li>
+          <li><a href="/staff/logout">Logout</a></li>
+        </ul>
+      </navigation>
+    <% } %>
+
+    <!-- <?php echo display_session_message(); ?> -->

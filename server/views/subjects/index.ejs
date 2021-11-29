@@ -1,0 +1,41 @@
+<%- include('../fragments/staff-header', {pageTitle}) %>
+
+<div id="content">
+  <div class="subjects listing">
+    <h1>Subjects</h1>
+
+    <div class="actions">
+      <a class="action" href="/staff/subjects/new">Create New Subject</a>
+    </div>
+
+  	<table class="list">
+  	  <tr>
+        <th>ID</th>
+        <th>Position</th>
+        <th>Visible</th>
+  	    <th>Name</th>
+        <th>Pages</th>
+  	    <th>&nbsp;</th>
+  	    <th>&nbsp;</th>
+        <th>&nbsp;</th>
+  	  </tr>
+
+      <% subjects.forEach(subject => { %>
+        <tr>
+          <td><%= subject.id %></td>
+          <td><%= subject.position %></td>
+          <td><%= subject.visible %></td>
+          <td><%= subject.menuName %></td>
+          <td><%= subject.pages.length %></td>
+          <td><a class="action" href="<%= `/staff/subjects/show/${subject.id}` %>">View</a></td>
+          <td><a class="action" href="<%= `/staff/subjects/edit/${subject.id}` %>">Edit</a></td>
+          <td><a class="action" href="<%= `/staff/subjects/delete/${subject.id}` %>">Delete</a></td>
+    	  </tr>
+      <% }) %>
+  	</table>
+
+  </div>
+
+</div>
+
+<%- include('../fragments/staff-footer') %>

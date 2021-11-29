@@ -1,0 +1,15 @@
+<%- include('../fragments/staff-header', {pageTitle}) %>
+
+<div id="content">
+
+  <a class="back-link" href="/staff/subjects/show/<%= page.subjectId %>">&laquo; Back to Subject Page</a>
+
+  <div class="page new">
+    
+    <%- include('./fragments/create-form', {title: 'Create Page', page, pagesCount, actionUrl: `/staff/subjects/${page.subjectId}/pages/new`, subjects: null, submitButtonLabel: 'Create Page'}) %> 
+
+  </div>
+
+</div>
+
+<%- include('../fragments/staff-footer') %> 

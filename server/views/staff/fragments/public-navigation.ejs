@@ -1,0 +1,23 @@
+<navigation>
+  <ul class="subjects">
+    <% subjects.forEach(subject => { %>
+      <li class="<%= subject.id === page.subjectId ? 'selected' : '' %>">
+        <a href="/?subjectId=<%= `${subject.id}${preview ? '&preview=true' : ''}` %>">
+          <%= subject.menuName %>
+        </a>
+
+        <% if (subject.id === page.subjectId) { %>
+          <ul class="pages">
+            <% subject.pages.forEach(it => { %>
+                  <li class="<%= it.id === page.id ? 'selected' : '' %>">
+                    <a href="/?id=<%= `${it.id}${preview ? '&preview=true' : ''}` %>">
+                      <%= it.menuName %>
+                    </a>
+                  </li>
+            <% }) %>
+          </ul>
+        <% } %>
+      </li>
+    <% }) %>
+  </ul>
+</navigation>

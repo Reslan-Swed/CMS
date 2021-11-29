@@ -1,0 +1,49 @@
+<h1><%= title %></h1>
+
+    <%- include('../../fragments/error-section') %>
+
+    <form action="<%= actionUrl %>" method="post">
+      <% if (subjects) { %>
+        <dl>
+            <dt>Subject</dt>
+            <dd>
+              <select name="subjectId">
+                <% subjects.forEach(subject => { %>
+                    <%- `<option value="${subject.id}" ${page.subjectId === subject.id ? 'selected' : ''}>${subject.menuName}</option>` %>
+                <% }) %>
+              </select>
+            </dd>
+          </dl>
+      <% } else { %>
+        <input type="hidden" name="subjectId" value="<%= page.subjectId %>">
+      <% } %> 
+      <dl>
+        <dt>Menu Name</dt>
+        <dd><input type="text" name="menuName" value="<%= page.menuName %>" /></dd>
+      </dl>
+      <dl>
+        <dt>Position</dt>
+        <dd>
+          <select name="position">
+            <% for( let i = 1; i <= pagesCount; i++ ) { %>
+                <%- `<option value="${i}" ${page.position === i ? 'selected' : ''}>${i}</option>` %> 
+            <% } %>
+          </select>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Visible</dt>
+        <dd>
+          <input type="checkbox" name="visible" value="true" <%= page.visible ? ' checked' : '' %> />
+        </dd>
+      </dl>
+      <dl>
+        <dt>Content</dt>
+        <dd>
+          <textarea name="content" cols="60" rows="10"><%= page.content %></textarea>
+        </dd>
+      </dl>
+      <div id="operations">
+        <input type="submit" value="<%= submitButtonLabel %>" />
+      </div>
+    </form>

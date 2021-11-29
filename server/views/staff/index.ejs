@@ -1,0 +1,19 @@
+<%- include('./fragments/public-header', {pageTitle, preview}) %>
+
+<div id="main">
+
+  <%- include('./fragments/public-navigation', {subjects, page, preview}) %>
+
+  <div id="page">
+
+    <% if (page) { %>
+      <%- page.content  %> 
+    <% } else { %>
+      <%- include('./fragments/static-homepage') %> 
+    <% } %>
+
+  </div>
+
+</div>
+
+<%- include('./fragments/public-footer') %>
