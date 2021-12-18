@@ -1,39 +1,37 @@
-<%- include('../fragments/staff-header', {pageTitle}) %>
+<%- include('../fragments/staff-header', { pageTitle,
+breadcrumbs: [
+{name: 'Subjects', path: '/staff/subjects'},
+{name: page.subject.menuName, path: `/staff/subjects/show/${page.subject.id}`},
+{name: page.menuName }
+]}) %>
 
 <div id="content">
 
-  <a class="back-link" href="/staff/subjects/show/<%= page.subject.id %>">&laquo; Back to Subject Page</a>
-
   <div class="page show">
 
-    <h1>Page: <%= page.menuName %></h1>
+    <h1 class="my-4">
+      Page: <%= page.menuName %>
+      <span class="h5">
+        <a class="badge badge-pill badge-warning" target="_blank" href="<%= `/?id=${page.id}&preview=true` %>">Preview</a>
+        <a class="badge badge-pill badge-success" href="<%= `/staff/subjects/${page.subject.id}/pages/edit/${page.id}` %>">Edit</a>
+        <a class="badge badge-pill badge-danger" href="<%= `/staff/subjects/${page.subject.id}/pages/delete/${page.id}` %>">Delete</a>
+      </span>
+    </h1>
 
-    <div class="actions">
-      <a class="action" href="/?id=<%= page.id %>&preview=true" target="_blank">Preview</a>
-    </div>
-
-    <div class="attributes">
-      <dl>
-        <dt>Subject</dt>
-        <dd><%= page.subject.menuName %></dd>
-      </dl>
-      <dl>
-        <dt>Menu Name</dt>
-        <dd><%= page.menuName %></dd>
-      </dl>
-      <dl>
-        <dt>Position</dt>
-        <dd><%= page.position %></dd>
-      </dl>
-      <dl>
-        <dt>Visible</dt>
-        <dd><%= page.visible %></dd>
-      </dl>
-      <dl>
-        <dt>Content</dt>
-        <dd><%= page.content %></dd>
-      </dl>
-    </div>
+    <dl class="row">
+      <dt class="col-sm-2 lead text-black-50">Subject</dt>
+      <dd class="col-sm-10 lead"><%= page.subject.menuName %></dd>
+      <dt class="col-sm-2 lead text-black-50">Menu Name</dt>
+      <dd class="col-sm-10 lead"><%= page.menuName %></dd>
+      <dt class="col-sm-2 lead text-black-50">Position</dt>
+      <dd class="col-sm-10 lead"><%= page.position %></dd>
+      <dt class="col-sm-2 lead text-black-50">Visible</dt>
+      <dd class="col-sm-10 lead"><%= page.visible %></dd>
+      <dt class="col-sm-2 lead text-black-50">Content</dt>
+      <dd class="col-sm-10">
+        <iframe src="data:text/html;charset=utf-8,<%= encodeURIComponent(page.content) %>"></iframe>
+      </dd>
+    </dl>
 
 
   </div>

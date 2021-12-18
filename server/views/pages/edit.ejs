@@ -1,8 +1,11 @@
-<%- include('../fragments/staff-header', {pageTitle}) %>
+<%- include('../fragments/staff-header', { pageTitle,
+breadcrumbs: [
+{name: 'Subjects', path: '/staff/subjects'},
+{name: page.subject.menuName, path: `/staff/subjects/show/${page.subject.id}`},
+{name: page.menuName }
+]}) %>
 
 <div id="content">
-
-  <a class="back-link" href="/staff/subjects/show/<%= page.subjectId %>">&laquo; Back to Subject Page</a>
 
   <div class="page new">
     

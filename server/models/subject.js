@@ -1,23 +1,30 @@
 const { DataTypes, Model } = require("sequelize");
-const sequelize = require("../lib/db").connection;
+const sequelize = require("../service/db").connection;
 const Page = require("./page");
 
-class Subject extends Model {}
+class Subject extends Model {
+    static identifier = 'id';
+    static columns = {
+        menuName: 'menuName',
+        position: 'position',
+        visible: 'visible'
+    };
+}
 
 Subject.init(
   {
-    id: {
+    [Subject.identifier]: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    menuName: {
+    [Subject.columns.menuName]: {
       type: DataTypes.STRING,
     },
-    position: {
+    [Subject.columns.position]: {
       type: DataTypes.INTEGER,
     },
-    visible: {
+    [Subject.columns.visible]: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },

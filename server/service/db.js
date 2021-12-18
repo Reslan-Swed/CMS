@@ -5,13 +5,14 @@ let sequelize = null;
 module.exports = {
   connection: () => sequelize,
 
-  connect(database, username, password, host, dialect) {
+  connect(database, username, password, host, port, dialect, logging = false) {
     sequelize =
       sequelize ||
       new Sequelize(database, username, password, {
         host,
+        port,
         dialect,
-        logging: false
+        logging
       });
     return sequelize;
   },

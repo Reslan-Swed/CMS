@@ -1,12 +1,15 @@
-<%- include('../fragments/staff-header', {pageTitle}) %>
+<%- include('../fragments/staff-header', { pageTitle,
+breadcrumbs: [
+{name: 'Subjects', path: '/staff/subjects'},
+{name: subject.menuName, path: `/staff/subjects/show/${subject.id}`},
+{name: '' }
+]}) %>
 
 <div id="content">
 
-  <a class="back-link" href="/staff/subjects/show/<%= page.subjectId %>">&laquo; Back to Subject Page</a>
-
   <div class="page new">
     
-    <%- include('./fragments/create-form', {title: 'Create Page', page, pagesCount, actionUrl: `/staff/subjects/${page.subjectId}/pages/new`, subjects: null, submitButtonLabel: 'Create Page'}) %> 
+    <%- include('./fragments/create-form', {title: 'Create Page', page, pagesCount, actionUrl: `/staff/subjects/${page.subjectId}/pages/new`, subjects: null, submitButtonLabel: 'Create Page'}) %>
 
   </div>
 

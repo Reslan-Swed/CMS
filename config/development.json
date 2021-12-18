@@ -1,3 +1,6 @@
 {
-    
+  "serverConfig": {
+    "port": 3000,
+    "enableErrors": true
+  }
 }

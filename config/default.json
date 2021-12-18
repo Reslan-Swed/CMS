@@ -1,3 +1,17 @@
 {
-    
+  "dbConfig": {
+    "database": "",
+    "username": "",
+    "password": "",
+    "host": "",
+    "port": "",
+    "dialect": "",
+    "enableLogging": false
+  },
+  "serverConfig": {
+    "port": 3000,
+    "enableErrors": false,
+    "tokenSignSecret": "",
+    "sessionSecret": ""
+  }
 }

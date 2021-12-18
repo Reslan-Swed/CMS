@@ -1,0 +1,14 @@
+{
+  "dbConfig": {
+    "database": "GBI.DB.DATABASE",
+    "username": "GBI.DB.USERNAME",
+    "password": "GBI.DB.PASSWORD",
+    "host": "GBI.DB.HOST",
+    "port": "GBI.DB.PORT",
+    "dialect": "GBI.DB.DIALECT"
+  },
+  "serverConfig": {
+    "tokenSignSecret": "GBI.SERVER.TOKEN_SIGN_SECRET",
+    "sessionSecret": "GBI.SERVER.SESSION_SECRET"
+  }
+}

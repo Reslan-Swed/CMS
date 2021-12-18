@@ -2,7 +2,7 @@ const express = require("express");
 const Joi = require("joi");
 const passport = require("passport");
 const utils = require("../../utils");
-const subjectRoute = require("./subjects");
+const subjectRouter = require("./subject");
 
 const schema = Joi.object({
   username: Joi.string().required(),
@@ -40,7 +40,7 @@ module.exports = (options) => {
     return res.send("Admins");
   });
 
-  router.use('/subjects', subjectRoute());
+  router.use('/subjects', subjectRouter());
 
   return router;
 };

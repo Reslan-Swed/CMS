@@ -1,62 +1,71 @@
-<%- include('../fragments/staff-header', {pageTitle}) %>
+<%- include('../fragments/staff-header', { pageTitle,
+breadcrumbs: [
+{name: 'Subjects', path: '/staff/subjects'},
+{name: subject.menuName }
+]}) %>
 
 <div id="content">
 
-  <a class="back-link" href="/staff/subjects">&laquo; Back to List</a>
-
   <div class="subject show">
 
-    <h1>Subject: <%= subject.menuName %></h1>
+    <h1 class="my-4">
+      Subject: <%= subject.menuName %>
+      <span class="h5">
+        <a class="badge badge-pill badge-success" href=<%= `/staff/subjects/edit/${subject.id}` %>>Edit</a>
+        <a class="badge badge-pill badge-danger" href=<%= `/staff/subjects/delete/${subject.id}` %>>Delete</a>
+      </span>
+    </h1>
 
-    <div class="attributes">
-      <dl>
-        <dt>Menu Name</dt>
-        <dd><%= subject.menuName %></dd>
-      </dl>
-      <dl>
-        <dt>Position</dt>
-        <dd><%= subject.position %></dd>
-      </dl>
-      <dl>
-        <dt>Visible</dt>
-        <dd><%= subject.visible %></dd>
-      </dl>
-    </div>
+    <dl class="row">
+        <dt class="col-sm-2 lead text-black-50">Menu Name</dt>
+        <dd class="col-sm-10 lead"><%= subject.menuName %></dd>
+        <dt class="col-sm-2 lead text-black-50">Position</dt>
+        <dd class="col-sm-10 lead"><%= subject.position %></dd>
+        <dt class="col-sm-2 lead text-black-50">Visible</dt>
+        <dd class="col-sm-10 lead"><%= subject.visible %></dd>
+    </dl>
 
     <hr />
 
     <div class="pages listing">
       <h2>Pages</h2>
+      <a class="btn btn-outline-secondary btn-sm my-2" href="<%= `/staff/subjects/${subject.id}/pages/new` %>">Create New Page</a>
 
-      <div class="actions">
-        <a class="action" href="<%= `/staff/subjects/${subject.id}/pages/new` %>">Create New Page</a>
-      </div>
-
-      <table class="list">
-        <tr>
-          <th>ID</th>
-          <th>Position</th>
-          <th>Visible</th>
-          <th>Name</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-        </tr>
-
-        <% subject.pages.forEach(page => { %>
+      <% if(subject.pages.length === 0) { %>
+      <%- '<p class="alert alert-secondary lead text-center" role="alert">No Pages Added Yet</p>' %>
+      <% } else { %>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="thead-dark">
           <tr>
-            <td><%= page.id %></td>
-            <td><%= page.position %></td>
-            <td><%= page.visible %></td>
-            <td><%= page.menuName %></td>
-            <td><a class="action" href="<%= `/staff/subjects/${subject.id}/pages/show/${page.id}` %>">View</a></td>
-            <td><a class="action" href="<%= `/staff/subjects/${subject.id}/pages/edit/${page.id}` %>">Edit</a></td>
-            <td><a class="action" href="<%= `/staff/subjects/${subject.id}/pages/delete/${page.id}` %>">Delete</a></td>
+            <th>ID</th>
+            <th>Position</th>
+            <th>Visible</th>
+            <th>Name</th>
+            <th>&nbsp;</th>
           </tr>
-        <% }) %>
-      </table>
+          </thead>
 
-    </div>
+          <tbody>
+          <% subject.pages.forEach(page => { %>
+            <tr>
+              <td><%= page.id %></td>
+              <td><%= page.position %></td>
+              <td><%= page.visible %></td>
+              <td><%= page.menuName %></td>
+              <td class="align-middle">
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                  <a type="button" class="btn btn-outline-success" href="<%= `/staff/subjects/${subject.id}/pages/show/${page.id}` %>">View</a>
+                  <a type="button" class="btn btn-outline-primary" href="<%= `/staff/subjects/${subject.id}/pages/edit/${page.id}` %>">Edit</a>
+                  <a type="button" class="btn btn-outline-danger" href="<%= `/staff/subjects/${subject.id}/pages/delete/${page.id}` %>">Delete</a>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% } %>
 
   </div>
 

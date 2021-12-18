@@ -1,38 +1,43 @@
-<%- include('../fragments/staff-header', {pageTitle}) %>
+<%- include('../fragments/staff-header', {pageTitle, "breadcrumbs": [{"name": "Subjects", "path": "/staff/subjects"}]}) %>
 
 <div id="content">
   <div class="subjects listing">
-    <h1>Subjects</h1>
+    <h1 class="mt-4">Subjects</h1>
+    <a class="btn btn-outline-secondary btn-sm my-2" href="/staff/subjects/new">Create New Subject</a>
 
-    <div class="actions">
-      <a class="action" href="/staff/subjects/new">Create New Subject</a>
+    <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Position</th>
+                <th>Visible</th>
+                <th>Name</th>
+                <th>Pages</th>
+                <th>&nbsp;</th>
+            </tr>
+          </thead>
+
+          <tbody>
+          <% subjects.forEach(subject => { %>
+            <tr>
+              <td class="align-middle"><%= subject.id %></td>
+              <td class="align-middle"><%= subject.position %></td>
+              <td class="align-middle"><%= subject.visible %></td>
+              <td class="align-middle"><%= subject.menuName %></td>
+              <td class="align-middle"><%= subject.pages.length %></td>
+              <td class="align-middle">
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                    <a type="button" class="btn btn-outline-success" href="<%= `/staff/subjects/show/${subject.id}` %>">View</a>
+                    <a type="button" class="btn btn-outline-primary" href="<%= `/staff/subjects/edit/${subject.id}` %>">Edit</a>
+                    <a type="button" class="btn btn-outline-danger" href="<%= `/staff/subjects/delete/${subject.id}` %>">Delete</a>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+          </tbody>
+        </table>
     </div>
-
-  	<table class="list">
-  	  <tr>
-        <th>ID</th>
-        <th>Position</th>
-        <th>Visible</th>
-  	    <th>Name</th>
-        <th>Pages</th>
-  	    <th>&nbsp;</th>
-  	    <th>&nbsp;</th>
-        <th>&nbsp;</th>
-  	  </tr>
-
-      <% subjects.forEach(subject => { %>
-        <tr>
-          <td><%= subject.id %></td>
-          <td><%= subject.position %></td>
-          <td><%= subject.visible %></td>
-          <td><%= subject.menuName %></td>
-          <td><%= subject.pages.length %></td>
-          <td><a class="action" href="<%= `/staff/subjects/show/${subject.id}` %>">View</a></td>
-          <td><a class="action" href="<%= `/staff/subjects/edit/${subject.id}` %>">Edit</a></td>
-          <td><a class="action" href="<%= `/staff/subjects/delete/${subject.id}` %>">Delete</a></td>
-    	  </tr>
-      <% }) %>
-  	</table>
 
   </div>
 

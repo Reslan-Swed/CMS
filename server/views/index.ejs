@@ -1,12 +1,14 @@
-<%- include('./fragments/staff-header', {pageTitle}) %>
+<%- include('./fragments/staff-header', { pageTitle, breadcrumbs: null }) %>
 
 <div id="content">
-  <div id="main-menu">
-    <h2>Main Menu</h2>
-    <ul>
-      <li><a href="/staff/subjects">Subjects</a></li>
-      <li><a href="/staff/admins">Admins</a></li>
-    </ul>
+  <h2 class="my-4">Main Menu</h2>
+  <div id="main-menu" class="row">
+    <div class="col-sm col-md-6 col-lg-4">
+      <div class="list-group">
+        <a href="/staff/subjects" class="list-group-item list-group-item-action">Subjects</a>
+        <a href="/staff/admins" class="list-group-item list-group-item-action">Admins</a>
+      </div>
+    </div>
   </div>
 </div>
 
