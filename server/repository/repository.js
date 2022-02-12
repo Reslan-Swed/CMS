@@ -1,9 +1,14 @@
 const _ = require('lodash');
+const sequelize = require('../service/db').connection;
 
 class Repository {
     constructor(model, identifier) {
         this.model = model;
         this.identifier = identifier;
+    }
+
+    get sequelize() {
+        return sequelize();
     }
 
     async findAll(options = {}) {
@@ -31,11 +36,22 @@ class Repository {
     }
 
     async update(identifier, values, options = {}) {
-        const instance = await this.findByPk(identifier, options);
-        _.forIn(values, (value, key) => {
-            instance.setDataValue(key, value);
+        await this.updateAll(values, {
+            ...options,
+            where: {
+                [this.identifier]: identifier,
+                ...options.where,
+            }
         });
-        return instance.save();
+        return this.findByPk(identifier, options);
+    }
+
+    async updateAll(values, options = {}) {
+        return this.model.update(values, options);
+    }
+
+    async increment(values, options = {}) {
+        return this.model.increment(values, options);
     }
 
     async destroy(identifier, options = {}) {

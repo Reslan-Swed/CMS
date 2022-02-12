@@ -40,7 +40,7 @@ breadcrumbs: [
           <tr>
             <th>ID</th>
             <th>Position</th>
-            <th>Visible</th>
+            <th>Status</th>
             <th>Name</th>
             <th>&nbsp;</th>
           </tr>
@@ -51,7 +51,12 @@ breadcrumbs: [
             <tr>
               <td><%= page.id %></td>
               <td><%= page.position %></td>
-              <td><%= page.visible %></td>
+              <td>
+                <%-
+                  page.visible ? '<span class="badge badge-pill badge-success">Published</span>'
+                          : '<span class="badge badge-pill badge-secondary">Not Published</span>';
+                %>
+              </td>
               <td><%= page.menuName %></td>
               <td class="align-middle">
                 <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">

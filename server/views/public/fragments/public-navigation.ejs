@@ -1,23 +1,20 @@
-<navigation>
-  <ul class="subjects">
-    <% subjects.forEach(subject => { %>
-      <li class="<%= subject.id === +page.subjectId ? 'selected' : '' %>">
-        <a href="/?subjectId=<%= `${subject.id}${preview ? '&preview=true' : ''}` %>">
-          <%= subject.menuName %>
-        </a>
+<div class="py-1 mb-2">
+    <nav class="nav d-flex justify-content-between">
+        <% subjects.forEach(subject => { %>
 
-        <% if (subject.id === +page.subjectId) { %>
-          <ul class="pages">
-            <% subject.pages.forEach(it => { %>
-                  <li class="<%= it.id === +page.id ? 'selected' : '' %>">
-                    <a href="/?id=<%= `${it.id}${preview ? '&preview=true' : ''}` %>">
-                      <%= it.menuName %>
-                    </a>
-                  </li>
-            <% }) %>
-          </ul>
-        <% } %>
-      </li>
-    <% }) %>
-  </ul>
-</navigation>
+            <div class="dropdown nav-link">
+                <a class="p-2 text-muted dropdown-toggle" role="button" id="<%= subject.menuName %>" data-toggle="dropdown" aria-expanded="false" href="/?subjectId=<%= `${subject.id}${preview ? '&preview=true' : ''}` %>">
+                    <%= subject.menuName %>
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="<%= subject.menuName %>">
+                    <% subject.pages.forEach(it => { %>
+                        <a class="dropdown-item <%= it.id === +page.id ? 'active' : '' %>" href="/?id=<%= `${it.id}${preview ? '&preview=true' : ''}` %>">
+                            <%= it.menuName %>
+                        </a>
+                    <% }) %>
+                </div>
+            </div>
+        <% }) %>
+    </nav>
+</div>

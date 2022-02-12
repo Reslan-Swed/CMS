@@ -27,6 +27,8 @@ if (missingRequiredConfig.length !== 0) {
 }
 
 const express = require("express");
+const fileUpload = require('express-fileupload');
+const path = require('path');
 const createError = require("http-errors");
 const httpStatusCodes = require('http-status-codes').StatusCodes;
 const sequelize = require("./service/db").connect(
@@ -46,6 +48,16 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", "./server/views");
 app.use(express.static("public"));
+app.use(fileUpload({
+  createParentPath: true,
+  limits: {
+    fileSize: 10 * 1024 * 1024
+  },
+  useTempFiles: true,
+  tempFileDir: path.resolve(__dirname, '../tmp'),
+  abortOnLimit: true,
+  debug: true
+}));
 // MAIN ENDPOINTS PREFIXES
 // REST API Routes
 app.use("/api", apiRoutes());

@@ -1,5 +1,8 @@
 const _ = require('lodash');
+const createError = require('http-errors');
+const path = require('path');
 const httpStatusCodes = require('http-status-codes').StatusCodes;
+const { v4: uuidv4 } = require('uuid');
 
 const ERRORS_KEY = 'error';
 const FORM_DATA_KEY = 'form-data';
@@ -70,5 +73,36 @@ module.exports = {
             };
             res.render('error');
         }
+    },
+
+    fileUploader(fileFieldName) {
+        return (req, res, next) => {
+            try {
+                if (!req.files) {
+                    res.send({
+                        status: false,
+                        message: 'No file uploaded'
+                    });
+                } else {
+                    const file = req.files[fileFieldName];
+                    const fileName = `${uuidv4()}${path.extname(file.name)}`;
+
+                    file.mv(path.resolve(__dirname, '../../public/uploads/', fileName));
+
+                    res.send({
+                        status: true,
+                        message: 'File is uploaded',
+                        data: {
+                            name: fileName,
+                            path: `/uploads/${fileName}`,
+                            mimetype: file.mimetype,
+                            size: file.size
+                        }
+                    });
+                }
+            } catch (err) {
+                next(createError(httpStatusCodes.INTERNAL_SERVER_ERROR, 'File uploading failed'));
+            }
+        };
     }
 };

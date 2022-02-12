@@ -73,5 +73,15 @@ module.exports = (options) => {
     return res.redirect(`/staff/subjects/show/${subjectId}`);
   });
 
+  router.get('/count', async (req, res) => {
+    const subjectId = req.params.subjectId;
+    res.json({
+      subject: {
+        id: subjectId,
+        totalPages: await pageRepo.count({where: {subjectId}})
+      }
+    });
+  });
+
   return router;
 };

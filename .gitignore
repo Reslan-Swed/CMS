@@ -2,5 +2,5 @@
 .vscode
 node_modules/
 .env
-.dockerignore
-Dockerfile
+tmp/
+public/uploads/

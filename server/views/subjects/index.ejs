@@ -11,30 +11,35 @@
             <tr>
                 <th>ID</th>
                 <th>Position</th>
-                <th>Visible</th>
+                <th>Status</th>
                 <th>Name</th>
                 <th>Pages</th>
                 <th>&nbsp;</th>
             </tr>
+            <% subjects.forEach(subject => { %>
+                <tr>
+                    <td class="align-middle"><%= subject.id %></td>
+                    <td class="align-middle"><%= subject.position %></td>
+                    <td class="align-middle">
+                        <%-
+                            subject.visible ? '<span class="badge badge-pill badge-success">Published</span>'
+                            : '<span class="badge badge-pill badge-secondary">Not Published</span>';
+                        %>
+                    </td>
+                    <td class="align-middle"><%= subject.menuName %></td>
+                    <td class="align-middle"><%= subject.pages.length %></td>
+                    <td class="align-middle">
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <a type="button" class="btn btn-outline-success" href="<%= `/staff/subjects/show/${subject.id}` %>">View</a>
+                            <a type="button" class="btn btn-outline-primary" href="<%= `/staff/subjects/edit/${subject.id}` %>">Edit</a>
+                            <a type="button" class="btn btn-outline-danger" href="<%= `/staff/subjects/delete/${subject.id}` %>">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
           </thead>
 
-          <tbody>
-          <% subjects.forEach(subject => { %>
-            <tr>
-              <td class="align-middle"><%= subject.id %></td>
-              <td class="align-middle"><%= subject.position %></td>
-              <td class="align-middle"><%= subject.visible %></td>
-              <td class="align-middle"><%= subject.menuName %></td>
-              <td class="align-middle"><%= subject.pages.length %></td>
-              <td class="align-middle">
-                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                    <a type="button" class="btn btn-outline-success" href="<%= `/staff/subjects/show/${subject.id}` %>">View</a>
-                    <a type="button" class="btn btn-outline-primary" href="<%= `/staff/subjects/edit/${subject.id}` %>">Edit</a>
-                    <a type="button" class="btn btn-outline-danger" href="<%= `/staff/subjects/delete/${subject.id}` %>">Delete</a>
-                </div>
-              </td>
-            </tr>
-          <% }) %>
+            <tbody>
           </tbody>
         </table>
     </div>

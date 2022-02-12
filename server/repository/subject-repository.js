@@ -1,3 +1,4 @@
+const {Op} = require("sequelize");
 const Repository = require('./repository');
 const Subject = require('../models/subject');
 const Page = require('../models/page');
@@ -9,6 +10,7 @@ class SubjectRepository extends Repository {
 
     async findAll(eagerLoadPages = false, options = {}) {
         return super.findAll({
+            order: [[Subject.columns.position], [Page, Page.columns.position]],
             ...options,
             ...(eagerLoadPages ? {
                 include: [
@@ -21,10 +23,13 @@ class SubjectRepository extends Repository {
 
     async findByPk(identifier, eagerLoadPages = false, options = {}) {
         return super.findByPk(identifier, {
+            order: eagerLoadPages ? [[Page, Page.columns.position]] : [],
             ...options,
             ...(eagerLoadPages ? {
                 include: [
-                    Page,
+                    {
+                        model: Page
+                    },
                     ...this._asArray(options.include)
                 ]
             } : {})
@@ -58,6 +63,36 @@ class SubjectRepository extends Repository {
                     },
                 } : {}),
             }
+        });
+    }
+
+    async update(identifier, values, options = {}) {
+        return await this.sequelize.transaction(async transaction => {
+            const oldInstance = await this.findByPk(identifier, false, {transaction});
+            if (oldInstance[Subject.columns.position] !== values[Subject.columns.position]) {
+                await super.updateAll({[Subject.columns.position]: oldInstance[Subject.columns.position]}, {
+                    where: {
+                        [Subject.columns.position]: values[Subject.columns.position]
+                    },
+                    transaction
+                });
+            }
+            return super.update(identifier, values, {...options, transaction});
+        });
+    }
+
+    async destroy(identifier, options = {}) {
+        return await this.sequelize.transaction(async transaction => {
+            const instance = await this.findByPk(identifier, false, {transaction});
+            await super.destroy(identifier, {...options, transaction});
+            await this.increment({[Subject.columns.position]: -1}, {
+                where: {
+                    [Subject.columns.position]: {
+                        [Op.gt]: instance[Subject.columns.position]
+                    }
+                },
+                transaction
+            })
         });
     }
 }

@@ -57,6 +57,8 @@ module.exports = sequelize => options => {
         });
     });
 
+    router.use('/upload', utils.fileUploader('img'));
+
     router.use('/staff', staffRouter());
 
     return router;
